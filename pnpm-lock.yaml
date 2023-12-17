@@ -8,9 +8,6 @@ dependencies:
   axios:
     specifier: ^1.6.2
     version: 1.6.2
-  localforage:
-    specifier: ^1.10.0
-    version: 1.10.0
   match-sorter:
     specifier: ^6.3.1
     version: 6.3.1
@@ -26,8 +23,14 @@ dependencies:
   sort-by:
     specifier: ^1.2.0
     version: 1.2.0
+  uuid:
+    specifier: ^9.0.1
+    version: 9.0.1
 
 devDependencies:
+  '@types/node':
+    specifier: ^20.10.4
+    version: 20.10.4
   '@types/react':
     specifier: ^18.2.43
     version: 18.2.43
@@ -37,6 +40,9 @@ devDependencies:
   '@types/sort-by':
     specifier: ^1.2.3
     version: 1.2.3
+  '@types/uuid':
+    specifier: ^9.0.7
+    version: 9.0.7
   '@typescript-eslint/eslint-plugin':
     specifier: ^6.14.0
     version: 6.14.0(@typescript-eslint/parser@6.14.0)(eslint@8.55.0)(typescript@5.2.2)
@@ -60,7 +66,7 @@ devDependencies:
     version: 5.2.2
   vite:
     specifier: ^5.0.8
-    version: 5.0.8
+    version: 5.0.8(@types/node@20.10.4)
 
 packages:
 
@@ -748,6 +754,12 @@ packages:
     resolution: {integrity: sha512-5+fP8P8MFNC+AyZCDxrB2pkZFPGzqQWUzpSeuuVLvm8VMcorNYavBqoFcxK8bQz4Qsbn4oUEEem4wDLfcysGHA==}
     dev: true
 
+  /@types/node@20.10.4:
+    resolution: {integrity: sha512-D08YG6rr8X90YB56tSIuBaddy/UXAA9RKJoFvrsnogAum/0pmjkgi4+2nx96A330FmioegBWmEYQ+syqCFaveg==}
+    dependencies:
+      undici-types: 5.26.5
+    dev: true
+
   /@types/prop-types@15.7.11:
     resolution: {integrity: sha512-ga8y9v9uyeiLdpKddhxYQkxNDrfvuPrlFb0N1qnZZByvcElJaXthF1UhvCh9TLWJBEHeNtdnbysW7Y6Uq8CVng==}
     dev: true
@@ -776,6 +788,10 @@ packages:
 
   /@types/sort-by@1.2.3:
     resolution: {integrity: sha512-Q8Pg7o2iHWFf7pR4jIGb+ntxwwL7a/WWLFNJj8jEN14tPQdfwZLCqK68q6mo1WONqa68OysEPuFvNA3uGm0crw==}
+    dev: true
+
+  /@types/uuid@9.0.7:
+    resolution: {integrity: sha512-WUtIVRUZ9i5dYXefDEAI7sh9/O7jGvHg7Df/5O/gtH3Yabe5odI3UWopVR1qbPXQtvOxWu3mM4XxlYeZtMWF4g==}
     dev: true
 
   /@typescript-eslint/eslint-plugin@6.14.0(@typescript-eslint/parser@6.14.0)(eslint@8.55.0)(typescript@5.2.2):
@@ -924,7 +940,7 @@ packages:
       '@babel/plugin-transform-react-jsx-source': 7.23.3(@babel/core@7.23.6)
       '@types/babel__core': 7.20.5
       react-refresh: 0.14.0
-      vite: 5.0.8
+      vite: 5.0.8(@types/node@20.10.4)
     transitivePeerDependencies:
       - supports-color
     dev: true
@@ -1460,10 +1476,6 @@ packages:
     engines: {node: '>= 4'}
     dev: true
 
-  /immediate@3.0.6:
-    resolution: {integrity: sha512-XXOFtyqDjNDAQxVfYxuF7g9Il/IbWmmlQg2MYKOH8ExIT1qg6xc4zyS3HaEEATgs1btfzxq15ciUiY7gjSXRGQ==}
-    dev: false
-
   /import-fresh@3.3.0:
     resolution: {integrity: sha512-veYYhQa+D1QBKznvhUHxb8faxlrwUnxseDAbAp457E0wLNio2bOSKnjYDhMj+YiAq61xrMGhQk9iXVk5FzgQMw==}
     engines: {node: '>=6'}
@@ -1561,18 +1573,6 @@ packages:
       prelude-ls: 1.2.1
       type-check: 0.4.0
     dev: true
-
-  /lie@3.1.1:
-    resolution: {integrity: sha512-RiNhHysUjhrDQntfYSfY4MU24coXXdEOgw9WGcKHNeEwffDYbF//u87M1EWaMGzuFoSbqW0C9C6lEEhDOAswfw==}
-    dependencies:
-      immediate: 3.0.6
-    dev: false
-
-  /localforage@1.10.0:
-    resolution: {integrity: sha512-14/H1aX7hzBBmmh7sGPd+AOMkkIrHM3Z1PAyGgZigA1H1p5O5ANnMyWzvpAETtG68/dC4pC0ncy3+PPGzXZHPg==}
-    dependencies:
-      lie: 3.1.1
-    dev: false
 
   /locate-path@6.0.0:
     resolution: {integrity: sha512-iPZK6eYjbxRu3uB4/WZ3EsEIMJFMqAoopl3R+zuq0UjcAm/MO6KCweDgPfP3elTztoKP3KtnVHxTn2NHBSDVUw==}
@@ -1974,6 +1974,10 @@ packages:
     hasBin: true
     dev: true
 
+  /undici-types@5.26.5:
+    resolution: {integrity: sha512-JlCMO+ehdEIKqlFxk6IfVoAUVmgz7cU7zD/h9XZ0qzeosSHmUJVOzSQvvYSYWXkFXC+IfLKSIffhv0sVZup6pA==}
+    dev: true
+
   /update-browserslist-db@1.0.13(browserslist@4.22.2):
     resolution: {integrity: sha512-xebP81SNcPuNpPP3uzeW1NYXxI3rxyJzF3pD6sH4jE7o/IX+WtSpwnVU+qIsDPyk0d3hmFQ7mjqc6AtV604hbg==}
     hasBin: true
@@ -1991,7 +1995,12 @@ packages:
       punycode: 2.3.1
     dev: true
 
-  /vite@5.0.8:
+  /uuid@9.0.1:
+    resolution: {integrity: sha512-b+1eJOlsR9K8HJpow9Ok3fiWOWSIcIzXodvv0rQjVoOVNpWMpxf1wZNpt4y9h10odCNrqnYp1OBzRktckBe3sA==}
+    hasBin: true
+    dev: false
+
+  /vite@5.0.8(@types/node@20.10.4):
     resolution: {integrity: sha512-jYMALd8aeqR3yS9xlHd0OzQJndS9fH5ylVgWdB+pxTwxLKdO1pgC5Dlb398BUxpfaBxa4M9oT7j1g503Gaj5IQ==}
     engines: {node: ^18.0.0 || >=20.0.0}
     hasBin: true
@@ -2019,6 +2028,7 @@ packages:
       terser:
         optional: true
     dependencies:
+      '@types/node': 20.10.4
       esbuild: 0.19.9
       postcss: 8.4.32
       rollup: 4.9.0

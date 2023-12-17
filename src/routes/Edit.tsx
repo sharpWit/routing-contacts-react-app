@@ -1,16 +1,42 @@
-import { Form, useLoaderData, redirect, useNavigate } from "react-router-dom";
-import { updateContact } from "../constants/contacts";
+import {
+  Form,
+  useLoaderData,
+  redirect,
+  useNavigate,
+  ActionFunctionArgs,
+  ActionFunction,
+} from "react-router-dom";
+import { updateContact } from "../utils/apiRequests";
+import { TLoaderContact, TParams } from "../types/requests";
 
 // ACTION
-export async function action({ request, params }) {
+export const action: ActionFunction<TParams> = async ({
+  request,
+  params,
+}: ActionFunctionArgs<TParams>): Promise<Response> => {
+  if (!request.formData) {
+    // Handle the case when formData is undefined
+    throw new Error("FormData is not available.");
+  }
+
   const formData = await request.formData();
-  const updates = Object.fromEntries(formData);
+
+  // Convert FormData to a plain JavaScript object
+  const updates: Record<string, string> = {};
+  formData.forEach((value, key) => {
+    updates[key] = value as string;
+  });
+
+  if (params.contactId === undefined) {
+    throw new Error("Contact ID is undefined");
+  }
+
   await updateContact(params.contactId, updates);
   return redirect(`/contacts/${params.contactId}`);
-}
+};
 
 export default function EditContact() {
-  const { contact } = useLoaderData();
+  const { contact } = useLoaderData() as TLoaderContact;
   const navigate = useNavigate();
 
   return (

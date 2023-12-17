@@ -1,8 +1,25 @@
-import { Form, useLoaderData, useFetcher } from "react-router-dom";
-import { getContact, updateContact } from "../constants/contacts";
+import { FC } from "react";
+import {
+  Form,
+  useLoaderData,
+  useFetcher,
+  LoaderFunction,
+  LoaderFunctionArgs,
+  ActionFunction,
+  ActionFunctionArgs,
+} from "react-router-dom";
+
+import { getContact, updateContact } from "../utils/apiRequests";
+import { TContact } from "../types/contacts";
+import { TLoaderContact, TParams } from "../types/requests";
 
 // LOADER
-export async function loader({ params }) {
+export const loader: LoaderFunction<TParams> = async ({
+  params,
+}: LoaderFunctionArgs<TParams>): Promise<TLoaderContact> => {
+  if (params.contactId === undefined) {
+    throw new Error("Contact ID is undefined");
+  }
   const contact = await getContact(params.contactId);
   if (!contact) {
     throw new Response("", {
@@ -11,18 +28,31 @@ export async function loader({ params }) {
     });
   }
   return { contact };
-}
+};
 
 // ACTION
-export async function action({ request, params }) {
-  let formData = await request.formData();
+export const action: ActionFunction<TParams> = async ({
+  request,
+  params,
+}: ActionFunctionArgs<TParams>): Promise<TContact | undefined> => {
+  if (!request.formData) {
+    // Handle the case when formData is undefined
+    throw new Error("FormData is not available.");
+  }
+
+  const formData = await request.formData();
+
+  if (params.contactId === undefined) {
+    throw new Error("Contact ID is undefined");
+  }
   return updateContact(params.contactId, {
     favorite: formData.get("favorite") === "true",
+    // Add other fields as needed
   });
-}
+};
 
 const Contact = () => {
-  const { contact } = useLoaderData();
+  const { contact } = useLoaderData() as TLoaderContact;
 
   return (
     <div id="contact">
@@ -73,7 +103,10 @@ const Contact = () => {
   );
 };
 
-function Favorite({ contact }) {
+interface Props {
+  contact: TContact;
+}
+const Favorite: FC<Props> = ({ contact }) => {
   const fetcher = useFetcher();
   let favorite = contact.favorite;
 
@@ -92,6 +125,6 @@ function Favorite({ contact }) {
       </button>
     </fetcher.Form>
   );
-}
+};
 
 export default Contact;

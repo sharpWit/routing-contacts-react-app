@@ -1,3 +1,4 @@
+import { FC, useEffect } from "react";
 import {
   Outlet,
   useLoaderData,
@@ -8,16 +9,20 @@ import {
   useSubmit,
 } from "react-router-dom";
 
-import { getContacts, createContact } from "../constants/contacts";
-import { useEffect } from "react";
+import { getContacts, createContact } from "../utils/apiRequests";
+import { TLoaderContacts, TLoaderRequest } from "../types/requests";
 
 // LOADER
-export async function loader({ request }) {
+export const loader = async ({
+  request,
+}: {
+  request: Request;
+}): Promise<TLoaderContacts> => {
   const url = new URL(request.url);
-  const q = url.searchParams.get("q");
+  const q = url.searchParams.get("q") || "";
   const contacts = await getContacts(q);
   return { contacts, q };
-}
+};
 
 // ACTION
 export async function action() {
@@ -25,8 +30,8 @@ export async function action() {
   return redirect(`/contacts/${contact.id}/edit`);
 }
 
-const Root = () => {
-  const { contacts, q } = useLoaderData();
+const Root: FC = () => {
+  const { contacts, q } = useLoaderData() as TLoaderRequest;
   const navigation = useNavigation();
   const submit = useSubmit();
 
@@ -35,7 +40,10 @@ const Root = () => {
     new URLSearchParams(navigation.location.search).has("q");
 
   useEffect(() => {
-    document.getElementById("q").value = q;
+    const qInputElement = document.getElementById("q") as HTMLInputElement;
+    if (qInputElement) {
+      qInputElement.value = q || "";
+    }
   }, [q]);
 
   return (

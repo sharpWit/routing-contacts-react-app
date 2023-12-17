@@ -21,6 +21,5 @@
     "noFallthroughCasesInSwitch": true
   },
   "include": ["src"],
-  "exclude": ["./src/constants/contacts.ts", "./src/routes/*"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }
